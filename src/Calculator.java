@@ -8,9 +8,12 @@ public class Calculator {
     }
 
     public static class Formula {
-        protected Double a, b, result;
+        protected Double a;
+        protected Double b;
+        protected Double result;
 
-        protected Formula() {}
+        protected Formula() {
+        }
 
         public Formula addOperand(double operand) {
             if (a == null) {
@@ -24,8 +27,9 @@ public class Calculator {
         }
 
         public Formula calculate(Operation op) {
-            if (a == null || b == null)
+            if (a == null || b == null) {
                 throw new IllegalStateException("Not enough operands!");
+            }
             switch (op) {
                 case SUM:
                     result = a + b;
@@ -42,13 +46,16 @@ public class Calculator {
                 case POW:
                     result = Math.pow(a, b);
                     break;
+                default:
+                    throw new IllegalArgumentException("Not supported operation");
             }
             return this;
         }
 
         public double result() {
-            if (result == null)
+            if (result == null) {
                 throw new IllegalStateException("Formula is not computed!");
+            }
             return result;
         }
     }
